@@ -11,25 +11,16 @@ import {
 import Auth from '../utils/auth';
 //import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
-import { useMutation, useQuery } from '@apollo/client'; 
-import { SAVE_BOOK } from '../utils/mutations';
-import { REMOVE_BOOK} from '../utils/mutations';
-import { GET_ME } from '../utils/queries';
-
-
-
-
-
+import { useMutation } from '@apollo/client';
+import { SAVE_BOOK, REMOVE_BOOK } from '../utils/mutations';
 
 const SearchBooks = () => {
-    // create state for holding returned google api data
-    const { loading, error, data: userData } = useQuery(GET_ME);
-    const [searchedBooks, setSearchedBooks] = useState([]);
-    const [searchInput, setSearchInput] = useState('');
-    const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  // create state for holding returned google api data
+  const [searchedBooks, setSearchedBooks] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
   }, [savedBookIds]);
@@ -84,11 +75,11 @@ const SearchBooks = () => {
       const { data } = await saveBookMutation({
         variables: { book: bookToSave },
       });
-  
-      if (error) {
+
+      if (!data) {
         throw new Error('Something went wrong!');
       }
-  
+
       setSavedBookIds([...savedBookIds, data.saveBook.savedBooks[data.saveBook.savedBooks.length - 1].bookId]);
     } catch (err) {
       console.error(err);
@@ -100,18 +91,19 @@ const SearchBooks = () => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
-    } 
-    try { 
+    }
+    try {
       const { data } = await removeBookMutation({
         variables: { bookId: bookId },
       });
-      if (error) {  
+      if (!data) {
         throw new Error('Something went wrong!');
       }
     } catch (err) {
       console.error(err);
-    };
+    }
   };
+
 
   return (
     <>
