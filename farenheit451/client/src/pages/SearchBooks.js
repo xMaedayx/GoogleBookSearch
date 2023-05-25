@@ -161,6 +161,7 @@ const SearchBooks = () => {
                     <p className='small'>Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
                     {Auth.loggedIn() && (
+                      <>
                       <Button
                         disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
                         className='btn-block btn-info'
@@ -176,6 +177,7 @@ const SearchBooks = () => {
                           ? 'Delete this Book!'
                           : 'This book has not been saved!'}
                         </Button>
+                        </>
                       
                     )}
                   </Card.Body>
@@ -184,6 +186,7 @@ const SearchBooks = () => {
             );
           })}
         </Row>
+
       </Container>
     </>
   );
