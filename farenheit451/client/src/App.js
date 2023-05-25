@@ -5,6 +5,9 @@ import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+
+function App() {
+
 const client = new ApolloClient({
   uri: 'http://your-apollo-server-endpoint',
   cache: new InMemoryCache(),
