@@ -161,8 +161,10 @@ const SearchBooks = () => {
                           : 'Save this Book!'}
                          </Button>
                          <Button> 
-                          className='btn-block btn-danger'
-                          onClick={() => handleDeleteBook(book.bookId)}>
+                         onClick={() => handleDeleteBook(book.bookId)}
+                         className='btn-block btn-info'
+                         disabled={!savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
+
                           {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
                           ? 'Delete this Book!'
                           : 'This book has not been saved!'}
