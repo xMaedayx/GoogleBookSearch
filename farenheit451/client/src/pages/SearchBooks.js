@@ -82,7 +82,7 @@ const SearchBooks = () => {
 
       setSavedBookIds([...savedBookIds, data.saveBook.savedBooks[data.saveBook.savedBooks.length - 1].bookId]);
     } catch (err) {
-      console.error(err);
+   
     }
   };
 

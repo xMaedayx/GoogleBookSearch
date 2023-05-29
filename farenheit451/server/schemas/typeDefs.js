@@ -18,6 +18,14 @@ type Book {
     image: String
     link: String
 }
+type BookInput {
+    bookId: ID!
+    authors: [String]
+    description: String
+    title: String!
+    image: String
+    link: String
+}
 type Auth {
     token: ID!
     user: User
@@ -32,6 +40,8 @@ type Mutation {
     removeBook(bookId: ID!): User
 }
 `;
+
+
 module.exports = typeDefs;
 
 
